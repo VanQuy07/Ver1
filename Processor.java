@@ -1,101 +1,104 @@
-package baitap;
+package processor;
 
-import baitap.Student;
-import baitap.StudentList;
 import java.util.Date;
 import java.util.Scanner;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 public class Processor {
+
     public static void main(String[] args) throws ParseException {
         Scanner scanner = new Scanner(System.in);
         StudentList studentList = new StudentList();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  // Ensure consistent date format
         boolean exit = false;
-
         while (!exit) {
-            System.out.println("Choose an option:");
+
+            System.out.println("Chon:");
             System.out.println("1. Add a new student");
             System.out.println("2. Update a student by id");
             System.out.println("3. Delete a student by id");
             System.out.println("4. Display all students");
             System.out.println("5. Find the student with the highest GPA");
-            System.out.println("6. Exit");
-            System.out.println("-----------------------------");
+            System.out.println("6. THOAT");
+            System.out.println(" ");
             int choice = scanner.nextInt();
-            scanner.nextLine(); 
-
+            scanner.nextLine();
             switch (choice) {
+
                 case 1:
-                    
-                    System.out.print("Enter ID: ");
+
+                    System.out.print("Nhap ID: ");
                     String id = scanner.nextLine();
-                    System.out.print("Enter Full Name: ");
+                    System.out.print("Nhap Full Name: ");
                     String fullName = scanner.nextLine();
-                    System.out.print("Enter Date of Birth (dd/MM/yyyy): ");
+
+                    // Date of Birth input using dd/MM/yyyy format
+                    System.out.print("Nhap Date of Birth (dd/MM/yyyy): ");
                     String dob = scanner.nextLine();
-                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                     Date dateOfBirth = formatter.parse(dob);
-                    System.out.print("Enter GPA: ");
+
+                    System.out.print("Nhap GPA: ");
                     float gpa = scanner.nextFloat();
-                    scanner.nextLine(); 
-                    System.out.print("Enter Major: ");
+                    scanner.nextLine();
+                    System.out.print("Nhap Major: ");
                     String major = scanner.nextLine();
                     studentList.addStudent(new Student(id, fullName, dateOfBirth, gpa, major));
-                    System.out.println("-----------------------------");
+                    System.out.println(" ------------------");
                     break;
 
-                case 2:
-                    System.out.print("Enter ID of the student to update: ");
+               case 2: 
+                    System.out.print("Enter ID to update: ");
                     String updateId = scanner.nextLine();
                     Student studentToUpdate = studentList.findStudentById(updateId);
                     if (studentToUpdate != null) {
+                        System.out.print("Enter new full name: ");
+                        String updatedFullName = scanner.nextLine();
+                        System.out.print("Enter new date of birth (dd/MM/yyyy): ");
+                        Date updatedDob = formatter.parse(scanner.nextLine());
+
                         System.out.print("Enter new GPA: ");
-                        float newGpa = scanner.nextFloat();
-                        scanner.nextLine(); 
-                        studentToUpdate.setGpa(newGpa);
-                        System.out.println("Student updated successfully.");
-                        System.out.println("-----------------------------");
+                        float updatedGpa = scanner.nextFloat();
+                        scanner.nextLine();
+                        System.out.print("Enter new major: ");
+                        String updatedMajor = scanner.nextLine();
+                        Student updatedStudent = new Student(updateId, updatedFullName, updatedDob, updatedGpa, updatedMajor);
+                        studentList.updateStudentById(updateId, updatedStudent);
                     } else {
                         System.out.println("Student not found.");
-                        System.out.println("-----------------------------");
                     }
                     break;
 
                 case 3:
-                    System.out.print("Enter ID of the student to delete: ");
+                    System.out.print("Nhap ID cua hoc sinh can xoa: ");
                     String deleteId = scanner.nextLine();
                     studentList.deleteStudentById(deleteId);
-                    System.out.println("Student deleted successfully.");
-                    System.out.println("-----------------------------");
+                    System.out.println("XOA THANH CONG.");
+                    System.out.println(" --");
                     break;
 
                 case 4:
                     studentList.displayAllStudents();
                     break;
-
-                case 5:
+                          
+                case 5: 
                     Student topStudent = studentList.findTopStudent();
                     if (topStudent != null) {
-                        System.out.println("Student with the highest GPA:");
+                        System.out.println("Hoc sinh co diem GPA cao nhat:");
                         topStudent.displayInfo();
                     } else {
-                        System.out.println("No students in the list.");
-                        System.out.println("-----------------------------");
+                        System.out.println("No students found.");
                     }
                     break;
 
                 case 6:
-                    exit = true;
+                    exit = true; // Exit the loop and terminate the program
                     break;
 
                 default:
-                    System.out.println("Invalid choice. Please choose again.");
-                    System.out.println("-----------------------------");
-                    break;
+                    System.out.println("Invalid choice. Please try again.");
             }
         }
-
         scanner.close();
     }
 }
