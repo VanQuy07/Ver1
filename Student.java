@@ -1,67 +1,78 @@
+package processor;
 
-package baitap;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 
-public class Student extends Person {   
-        float GPA;
-        String major;
+public class Student extends Person {
 
-    public Student() {
-    }
+    private float gpa;
+    private String major;
+    private final float TUITION_FEE = 10000000; 
 
-        
-    public Student(float GPA, String major, String id, String fullName, Date dateOfBirth) {
-        
-        this.GPA = GPA;
+    public Student(String id, String fullName, Date dateOfBirth, float gpa, String major) {
+        super(id, fullName, dateOfBirth);
+        this.gpa = gpa;
         this.major = major;
     }
 
-    public Student(String id, String fullName, Date dateOfBirth, float gpa, String major) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+    @Override
+    public void displayInfo() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String formattedDate = dateFormat.format(dateOfBirth); // Định dạng lại ngày sinh
+        System.out.println("ID: " + id);
+        System.out.println("Full Name: " + fullName);
+        System.out.println("Date of Birth: " + formattedDate);
+        System.out.println("GPA: " + gpa);
+        System.out.println("Major: " + major);
+
+        if (gpa >= 9) {
+            System.out.println("Scholarship: Yes (50% )");
+        } else {
+            System.out.println("Scholarship: No");
+        }
+        System.out.println("----------------------------------");
     }
 
-    public float getGPA() {
-        return GPA;
+    public void addStudent(String id, String fullName, Date dateOfBirth, float gpa, String major) {
+        this.id = id;
+        this.fullName = fullName;
+        this.dateOfBirth = dateOfBirth;
+        this.gpa = gpa;
+        this.major = major;
+    }
+
+    public float getGpa() {
+        return gpa;
+    }
+
+    public void setGpa(float gpa) {
+        this.gpa = gpa;
     }
 
     public String getMajor() {
         return major;
     }
 
-    public void setGPA(float GPA) {
-        this.GPA = GPA;
-    }
-
     public void setMajor(String major) {
         this.major = major;
     }
-        
-    public void addStudent(float GPA, String major, String id, String fullName, Date dateOfBirth){
-        this.id=id;
-        this.fullName=fullName;
-        this.dateOfBirth=dateOfBirth;
-        this.GPA=GPA;
-        this.major=major;
-    }
-    @Override
-    public void displayInfo() {
-      SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-              String formattedDate = dateFormat.format(dateOfBirth);
-              System.out.println("id: "+id);
-              System.out.println("name:"+fullName);
-              System.out.println("dob"+formattedDate);
-              System.out.println("gpa"+GPA);
-              System.out.println("major"+major);
-    
-    
-}
 
-    Object getID() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Student(String id, String fullName, Date dateOfBirth) {
+        super(id, fullName, dateOfBirth);
     }
 
-    public void setGpa(float newGpa) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    void setfullName(String fullName) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+    void setName(String newName) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    void setDateOfBirth(LocalDate newDob) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
 }
